@@ -1,0 +1,10 @@
+﻿@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString()?.ToLower() ?? String.Empty;
+}
+
+<a class="navbar-brand badge bg-secondary" asp-controller="Home" asp-action="Index">15350061</a>
+<div class="navbar-nav">
+    <a class="nav-item nav-link @(controller=="home"?"active":"")" asp-controller="Home" asp-action="Index">Лб 1</a>
+    <a class="nav-item nav-link" asp-controller="Product" asp-action="Index">Каталог</a>
+    <a class="nav-item nav-link" asp-area="Admin" asp-page="/Index">Администрирование</a>
+</div>
