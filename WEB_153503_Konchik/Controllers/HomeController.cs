@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WEB_153503_Konchik.Models;
-
-namespace WEB_153503_Konchik.Controllers;
+﻿namespace WEB_153503_Konchik.Controllers;
 
 public class HomeController : Controller
 {

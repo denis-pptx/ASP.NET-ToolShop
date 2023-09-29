@@ -1,7 +1,10 @@
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IToolCategoryService, MemoryToolCategoryService>();
+builder.Services.AddScoped<IToolService, MemoryToolService>();
 
 var app = builder.Build();
 
