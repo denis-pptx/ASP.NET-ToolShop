@@ -3,8 +3,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IToolCategoryService, MemoryToolCategoryService>();
-builder.Services.AddScoped<IToolService, MemoryToolService>();
+
+//builder.Services.AddScoped<IToolCategoryService, MemoryToolCategoryService>();
+//builder.Services.AddScoped<IToolService, MemoryToolService>();
+
+UriData uriData = builder.Configuration.GetSection("UriData").Get<UriData>()!;
+
+builder.Services.AddHttpClient<IToolService, ApiToolService>(opt => opt.BaseAddress = new Uri(uriData.ApiUri));
+builder.Services.AddHttpClient<IToolCategoryService, ApiToolCategoryService>(opt => opt.BaseAddress = new Uri(uriData.ApiUri));
+
 
 var app = builder.Build();
 
@@ -28,3 +35,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void Function(HttpClient client)
+{
+
+}

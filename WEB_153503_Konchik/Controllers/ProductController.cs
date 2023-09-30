@@ -18,9 +18,9 @@ public class ProductController : Controller
             return NotFound(categoryResponse.ErrorMessage);
 
         ViewData["caregories"] = categoryResponse.Data;
-        ViewData["currentCategory"] = categoryResponse.Data.SingleOrDefault(c => c.NormalizedName == category);
+        ViewData["currentCategory"] = categoryResponse.Data?.SingleOrDefault(c => c.NormalizedName == category);
 
-        var productResponce = await _toolService.GetToolsListAsync(category, pageNo);
+        var productResponce = await _toolService.GetToolListAsync(category, pageNo);
         if (!productResponce.Success)
             return NotFound(productResponce.ErrorMessage);
 

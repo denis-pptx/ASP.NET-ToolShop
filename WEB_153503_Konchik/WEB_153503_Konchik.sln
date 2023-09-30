@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik", "WEB_153503_Konchik.csproj", "{63018884-B32E-42C3-83A2-40A6A374E222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.Domain", "..\WEB_153503_Konchik.Domain\WEB_153503_Konchik.Domain.csproj", "{2D434717-4056-42C8-998A-47D49D2850BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.Domain", "..\WEB_153503_Konchik.Domain\WEB_153503_Konchik.Domain.csproj", "{2D434717-4056-42C8-998A-47D49D2850BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.API", "..\WEB_153503_Konchik.API\WEB_153503_Konchik.API.csproj", "{905E754C-A55C-4B39-A7DE-EE75C1189084}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2D434717-4056-42C8-998A-47D49D2850BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D434717-4056-42C8-998A-47D49D2850BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D434717-4056-42C8-998A-47D49D2850BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

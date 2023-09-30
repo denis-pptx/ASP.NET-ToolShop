@@ -8,7 +8,7 @@ public interface IToolService
     /// <param name="categoryNormalizedName">нормализованное имя категории для фильтрации</param>
     /// <param name="pageNo">номер страницы списка</param>
     /// <returns></returns>
-    public Task<ResponseData<ListModel<Tool>>> GetToolsListAsync(string? categoryNormalizedName, int pageNo = 1);
+    public Task<ResponseData<ListModel<Tool>>> GetToolListAsync(string? categoryNormalizedName, int pageNo = 1);
 
     /// <summary>
     /// Поиск объекта по Id

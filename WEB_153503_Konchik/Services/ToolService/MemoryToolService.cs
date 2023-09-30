@@ -150,7 +150,7 @@ public class MemoryToolService : IToolService
         };
     }
 
-    public Task<ResponseData<ListModel<Tool>>> GetToolsListAsync(string? categoryNormalizedName, int pageNo = 1)
+    public Task<ResponseData<ListModel<Tool>>> GetToolListAsync(string? categoryNormalizedName, int pageNo = 1)
     {
         var result = new ResponseData<ListModel<Tool>>();
 
