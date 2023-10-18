@@ -100,7 +100,7 @@ public class ApiToolService : IToolService
 
     public async Task<ResponseData<Tool>> GetToolByIdAsync(int id)
     {
-        var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/{id}");
+        var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/tool{id}");
         var response = await _httpClient.GetAsync(new Uri(urlString.ToString()));
 
         if (response.IsSuccessStatusCode)

@@ -78,7 +78,7 @@ public class ToolService : IToolService
 
     public async Task<ResponseData<Tool>> GetToolByIdAsync(int id)
     {
-        var tool = await _context.Tools.FindAsync(id);
+        var tool = await _context.Tools.Include(t => t.Category).SingleOrDefaultAsync(t => t.Id == id);
         if (tool is null)
         {
             return new()
@@ -153,7 +153,7 @@ public class ToolService : IToolService
         oldTool.Description = tool.Description;
         oldTool.Price = tool.Price;
         oldTool.Image = tool.Image;
-        oldTool.Category = tool.Category;
+        oldTool.CategoryId = tool.CategoryId;
 
         await _context.SaveChangesAsync();
     }

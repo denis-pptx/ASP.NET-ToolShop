@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik", "WEB_1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.Domain", "..\WEB_153503_Konchik.Domain\WEB_153503_Konchik.Domain.csproj", "{2D434717-4056-42C8-998A-47D49D2850BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.API", "..\WEB_153503_Konchik.API\WEB_153503_Konchik.API.csproj", "{905E754C-A55C-4B39-A7DE-EE75C1189084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.API", "..\WEB_153503_Konchik.API\WEB_153503_Konchik.API.csproj", "{905E754C-A55C-4B39-A7DE-EE75C1189084}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
