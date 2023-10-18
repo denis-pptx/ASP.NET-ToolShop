@@ -23,6 +23,9 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
         [BindProperty]
         public Tool Tool { get; set; } = default!;
 
+        [BindProperty]
+        public IFormFile? Image { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
             var response = await _toolService.GetToolByIdAsync(id);
@@ -44,7 +47,7 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
                 return Page();
             }
 
-            await _toolService.UpdateToolAsync(Tool.Id, Tool, null);
+            await _toolService.UpdateToolAsync(Tool.Id, Tool, Image);
 
             return RedirectToPage("./Index");
         }

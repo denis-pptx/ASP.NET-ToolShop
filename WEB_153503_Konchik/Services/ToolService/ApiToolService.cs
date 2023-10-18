@@ -77,6 +77,10 @@ public class ApiToolService : IToolService
         if (response.IsSuccessStatusCode)
         {
             var data = await response.Content.ReadFromJsonAsync<ResponseData<Tool>>(_serializerOptions);
+            if (formFile != null)
+            {
+                await SaveImageAsync(data!.Data!.Id, formFile);
+            }
             return data!;
         }
         _logger.LogError($"-----> object not created. Error: {response.StatusCode}");
@@ -137,6 +141,25 @@ public class ApiToolService : IToolService
         {
             _logger.LogError($"-----> Данные не получены от сервера. Error: {response.StatusCode}");
         }
+        else if (formFile != null) 
+        {
+            int toolId = (await response.Content.ReadFromJsonAsync<ResponseData<Tool>>(_serializerOptions))!.Data!.Id;
+            await SaveImageAsync(toolId, formFile);
+        }
+    }
+
+    private async Task SaveImageAsync(int id, IFormFile image)
+    {
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri($"{_httpClient.BaseAddress?.AbsoluteUri}Tools/{id}")
+        };
+        var content = new MultipartFormDataContent();
+        var streamContent = new StreamContent(image.OpenReadStream());
+        content.Add(streamContent, "formFile", image.FileName);
+        request.Content = content;
+        await _httpClient.SendAsync(request);
     }
 
 

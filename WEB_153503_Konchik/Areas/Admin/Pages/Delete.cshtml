@@ -36,12 +36,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tool.Category!.Name)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tool.Image)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tool.Image)
-        </dd>
+        <img src="@Model.Tool.Image" style="height: 250px; width: auto;">
     </dl>
     
     <form method="post">

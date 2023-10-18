@@ -15,7 +15,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Tool.Id" />
             <div class="form-group">
@@ -38,12 +38,11 @@
                 <select asp-for="Tool.CategoryId" class="form-control" asp-items="@categories"></select>
                 <span asp-validation-for="Tool.Category" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Tool.Image" class="control-label"></label>
-                <input asp-for="Tool.Image" class="form-control" />
-                <span asp-validation-for="Tool.Image" class="text-danger"></span>
+            <div class="form-group mt-3">
+                <input asp-for="Image" name="Image" type="file" class="form-control">
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

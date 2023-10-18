@@ -27,6 +27,8 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
         [BindProperty]
         public Tool Tool { get; set; } = default!;
 
+        [BindProperty]
+        public IFormFile Image { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +38,7 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
                 return Page();
             }
 
-            var response = await _toolService.CreateToolAsync(Tool, null);
+            var response = await _toolService.CreateToolAsync(Tool, Image);
             if (!response.Success)
             {
                 return Page();

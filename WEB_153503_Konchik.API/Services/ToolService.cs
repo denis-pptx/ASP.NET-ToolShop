@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace WEB_153503_Konchik.API.Services;
 
@@ -8,10 +9,17 @@ public class ToolService : IToolService
     private readonly AppDbContext _context;
     private readonly IConfiguration _configuration;
 
-    public ToolService(AppDbContext context, IConfiguration configuration)
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public ToolService(AppDbContext context, IConfiguration configuration, 
+        IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _configuration = configuration;
+
+        _webHostEnvironment = webHostEnvironment;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<ResponseData<ListModel<Tool>>> GetToolListAsync(string? categoryNormalizedName, int pageNo = 1, int pageSize = 3)
@@ -106,39 +114,44 @@ public class ToolService : IToolService
         await _context.SaveChangesAsync();
     }
 
-    
 
     public async Task<ResponseData<string>> SaveImageAsync(int id, IFormFile formFile)
     {
+        var responseData = new ResponseData<string>();
         var tool = await _context.Tools.FindAsync(id);
-        if (tool is null)
+        if (tool == null)
         {
-            return new ResponseData<string>
+            responseData.Success = false;
+            responseData.ErrorMessage = "No item found";
+            return responseData;
+        }
+        var host = "https://" + _httpContextAccessor.HttpContext?.Request.Host;
+        var imageFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+
+        if (formFile != null)
+        {
+            if (!string.IsNullOrEmpty(tool.Image))
             {
-                Success = false,
-                ErrorMessage = "Tool was not found"
-            };
+                var prevImage = Path.GetFileName(tool.Image);
+                var prevImagePath = Path.Combine(imageFolder, prevImage);
+                if (File.Exists(prevImagePath))
+                {
+                    File.Delete(prevImagePath);
+                }
+            }
+            var ext = Path.GetExtension(formFile.FileName);
+            var fName = Path.ChangeExtension(Path.GetRandomFileName(), ext);
+            var filePath = Path.Combine(imageFolder, fName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            tool.Image = $"{host}/images/{fName}";
+            await _context.SaveChangesAsync();
         }
-
-        string imageRoot = Path.Combine(_configuration["AppUrl"]!, "images");
-        string uniqueFileName = Guid.NewGuid().ToString() + "_" + formFile.FileName;
-        
-        string imagePath = Path.Combine(imageRoot, uniqueFileName);
-
-        using (var stream = new FileStream(imagePath, FileMode.Create))
-        {
-            await formFile.CopyToAsync(stream);
-        }
-
-        tool.Image = imagePath;
-        await _context.SaveChangesAsync();
-
-        return new ResponseData<string>
-        {
-            Data = tool.Image,
-            Success = true
-        };
-
+        responseData.Data = tool.Image;
+        return responseData;
     }
 
     public async Task UpdateToolAsync(int id, Tool tool)

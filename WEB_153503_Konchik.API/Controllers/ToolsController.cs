@@ -62,7 +62,7 @@ public class ToolsController : ControllerBase
     public async Task<ActionResult<ResponseData<Tool>>> PostTool(Tool tool)
     {
         var result = await _toolService.CreateToolAsync(tool);
-        return result.Success ? Ok(result.Data) : BadRequest(result);
+        return result.Success ? Ok(result) : BadRequest(result);
     }
 
     // DELETE: api/Tools/5
@@ -84,6 +84,18 @@ public class ToolsController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    // POST: api/Tools/5
+    [HttpPost("{id}")]
+    public async Task<ActionResult<ResponseData<string>>> PostImage(int id, IFormFile formFile)
+    {
+        var response = await _toolService.SaveImageAsync(id, formFile);
+        if (response.Success)
+        {
+            return Ok(response);
+        }
+        return NotFound(response);
     }
 
     private async Task<bool> ToolExists(int id)
