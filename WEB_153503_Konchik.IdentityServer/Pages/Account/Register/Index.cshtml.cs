@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WEB_153503_Konchik.IdentityServer.Models;
 
@@ -23,15 +24,18 @@ namespace WEB_153503_Konchik.IdentityServer.Pages.Register
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [BindProperty]
@@ -58,6 +62,17 @@ namespace WEB_153503_Konchik.IdentityServer.Pages.Register
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public IFormFile Image { get; set; }
+        }
+
+        private async Task SaveImageAsync(string id)
+        {
+            var ext = Path.GetExtension(Input.Image.FileName);
+            var fileName = Path.ChangeExtension(id, ext);
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+            using var stream = System.IO.File.OpenWrite(path);
+            await Input.Image.CopyToAsync(stream);
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -76,6 +91,11 @@ namespace WEB_153503_Konchik.IdentityServer.Pages.Register
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if (Input.Image != null)
+                    {
+                        await SaveImageAsync(user.Id);
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
