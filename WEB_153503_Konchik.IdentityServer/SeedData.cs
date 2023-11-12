@@ -19,7 +19,7 @@ namespace WEB_153503_Konchik.IdentityServer
 
                 var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 if (roleMgr.FindByNameAsync("admin").Result is null)
-                     roleMgr.CreateAsync(new IdentityRole("admin"));
+                    roleMgr.CreateAsync(new IdentityRole("admin"));
 
                 if (roleMgr.FindByNameAsync("user").Result is null)
                     roleMgr.CreateAsync(new IdentityRole("user"));

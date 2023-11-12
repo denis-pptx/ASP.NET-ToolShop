@@ -24,6 +24,8 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
 
         public async Task<IActionResult> OnGetAsync(int pageNo = 1)
         {
+            // var user = HttpContext.User;
+
             var responce = await _toolService.GetToolListAsync(null, pageNo);
             
             if (!responce.Success)

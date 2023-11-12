@@ -10,6 +10,7 @@ namespace WEB_153503_Konchik.IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource("roles", "User roles", new List<string> { "role" })
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -37,8 +38,8 @@ namespace WEB_153503_Konchik.IdentityServer
                 // interactive client using code flow + pkce
                 new Client
                 {
-                    ClientId = "interactive",
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                    ClientId = "WEB",
+                    ClientSecrets = { new Secret("konchik-secret-key".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
 
@@ -47,7 +48,7 @@ namespace WEB_153503_Konchik.IdentityServer
                     PostLogoutRedirectUris = { "https://localhost:7001/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api.read", "api.write" }
+                    AllowedScopes = { "openid", "profile", "api.read", "api.write", "roles" },
                 },
             };
     }

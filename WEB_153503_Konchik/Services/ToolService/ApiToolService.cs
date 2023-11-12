@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Headers;
+﻿using Microsoft.AspNetCore.Authentication;
+using NuGet.Common;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
@@ -10,8 +13,10 @@ public class ApiToolService : IToolService
     private string _pageSize;
     private readonly JsonSerializerOptions _serializerOptions;
     private readonly ILogger<ApiToolService> _logger;
+    private readonly HttpContext _httpContext;
 
-    public ApiToolService(HttpClient httpClient, IConfiguration configuration, ILogger<ApiToolService> logger)
+    public ApiToolService(HttpClient httpClient, IConfiguration configuration, ILogger<ApiToolService> logger, 
+        IHttpContextAccessor httpContextAccessor)
     {
         _httpClient = httpClient;
         _pageSize = configuration.GetSection("ItemsPerPage").Value!;
@@ -21,6 +26,10 @@ public class ApiToolService : IToolService
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
         _logger = logger;
+
+        _httpContext = httpContextAccessor.HttpContext!;
+        var token = _httpContext.GetTokenAsync("access_token").Result;
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
     }
 
     public async Task<ResponseData<ListModel<Tool>>> GetToolListAsync(string? categoryNormalizedName, int pageNo = 1)
