@@ -13,7 +13,7 @@
     int next = Model.CurrentPage == Model.TotalPages ? Model.TotalPages : Model.CurrentPage + 1;
 }
 
-<h1>Строительные инструменты</h1>
+
 
 
 <div class="row">
@@ -53,6 +53,8 @@
     <!-- Выбор категории - конец -->
     <!-- Вывод карточек -->
     <div class="col-10 row">
+        <h1 class="my-3">Строительные инструменты</h1>
+
         @foreach (var tool in Model.Items)
         {
             <div class="col-md-4">

@@ -42,6 +42,12 @@ builder.Services.AddAuthentication(opt =>
         options.ClaimActions.MapUniqueJsonKey("role", "role");
     });
 
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
