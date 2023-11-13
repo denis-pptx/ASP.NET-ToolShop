@@ -165,7 +165,6 @@ public class ToolService : IToolService
         oldTool.Name = tool.Name;
         oldTool.Description = tool.Description;
         oldTool.Price = tool.Price;
-        oldTool.Image = tool.Image;
         oldTool.CategoryId = tool.CategoryId;
 
         await _context.SaveChangesAsync();

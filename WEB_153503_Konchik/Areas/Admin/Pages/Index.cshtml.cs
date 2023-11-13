@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using WEB_153503_Konchik.Domain.Entities;
 
 namespace WEB_153503_Konchik.Areas.Admin.Pages
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class IndexModel : PageModel
     {
         private readonly IToolService _toolService;
@@ -24,6 +27,8 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
 
         public async Task<IActionResult> OnGetAsync(int pageNo = 1)
         {
+            // var user = HttpContext.User;
+
             var responce = await _toolService.GetToolListAsync(null, pageNo);
             
             if (!responce.Success)

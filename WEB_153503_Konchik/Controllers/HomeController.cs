@@ -1,4 +1,6 @@
-﻿namespace WEB_153503_Konchik.Controllers;
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace WEB_153503_Konchik.Controllers;
 
 public class HomeController : Controller
 {

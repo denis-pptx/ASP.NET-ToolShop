@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Drawing.Printing;
 using WEB_153503_Konchik.Domain.Entities;
 
@@ -9,9 +11,12 @@ namespace WEB_153503_Konchik.API.Controllers;
 public class ToolsController : ControllerBase
 {
     private readonly IToolService _toolService;
-    public ToolsController(IToolService toolService)
+    public ToolsController(IToolService toolService, IHttpContextAccessor httpContextAccessor)
     {
         _toolService = toolService;
+
+        var _httpContext = httpContextAccessor.HttpContext!;
+        var token = _httpContext.GetTokenAsync("access_token").Result;
     }
 
     // GET: api/Tools
@@ -33,6 +38,7 @@ public class ToolsController : ControllerBase
 
     // PUT: api/Tools/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<ResponseData<Tool>>> PutTool(int id, Tool tool)
     {
@@ -58,6 +64,7 @@ public class ToolsController : ControllerBase
 
     // POST: api/Tools
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public async Task<ActionResult<ResponseData<Tool>>> PostTool(Tool tool)
     {
@@ -66,6 +73,7 @@ public class ToolsController : ControllerBase
     }
 
     // DELETE: api/Tools/5
+    [Authorize(Roles = "admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTool(int id)
     {
@@ -87,6 +95,7 @@ public class ToolsController : ControllerBase
     }
 
     // POST: api/Tools/5
+    [Authorize(Roles = "admin")]
     [HttpPost("{id}")]
     public async Task<ActionResult<ResponseData<string>>> PostImage(int id, IFormFile formFile)
     {

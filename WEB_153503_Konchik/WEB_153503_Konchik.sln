@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.API", "..\WEB_153503_Konchik.API\WEB_153503_Konchik.API.csproj", "{905E754C-A55C-4B39-A7DE-EE75C1189084}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.IdentityServer", "..\WEB_153503_Konchik.IdentityServer\WEB_153503_Konchik.IdentityServer.csproj", "{8DDB44C6-B93A-4431-8026-EF26324754B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{905E754C-A55C-4B39-A7DE-EE75C1189084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDB44C6-B93A-4431-8026-EF26324754B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDB44C6-B93A-4431-8026-EF26324754B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDB44C6-B93A-4431-8026-EF26324754B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDB44C6-B93A-4431-8026-EF26324754B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
