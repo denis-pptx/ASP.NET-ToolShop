@@ -400,3 +400,6 @@ FodyWeavers.xsd
 
 # Client libraries
 WEB_153503_Konchik/wwwroot/lib/
+
+# IdentityServer
+WEB_153503_Konchik.IdentityServer/keys
