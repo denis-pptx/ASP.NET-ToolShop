@@ -50,34 +50,16 @@
             </li>
         </ul>
     </div>
-    <!-- Выбор категории - конец -->
 
     <!-- Вывод карточек -->
     <div class="col-10 row">
         <h1>Строительные инструменты</h1>
 
-        @foreach (var tool in Model.Items)
-        {
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="@tool.Image" class="card-img-top" alt="@tool.Name">
-                    <div class="card-body">
-                        <h5 class="card-title">@tool.Name</h5>
-                        <p class="card-text">@tool.Description</p>
-                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@tool.Id" asp-route-returnurl="@returnUrl"
-                           class="btn btn-primary">Добавить в корзину</a>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <!-- Пагинация -->
-        <Pager current-page="@Model.CurrentPage"
-               total-pages="@Model.TotalPages"
-               category="@(currentCategory?.NormalizedName)"></Pager>
-        <!-- Пагинация - конец -->
-
+        <partial name="_ProductIndexPartial"
+                 model="new { Model.Items, ReturnUrl = returnUrl, Model.CurrentPage,
+                              Model.TotalPages, CurrentCategory = currentCategory }" />
     </div>
+
     <!-- Вывод карточек - конец -->
 </div>
 
