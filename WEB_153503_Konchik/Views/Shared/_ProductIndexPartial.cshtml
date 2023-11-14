@@ -1,4 +1,9 @@
-﻿@foreach (var tool in Model.Items)
+﻿@{
+    var request = ViewContext.HttpContext.Request;
+    var returnUrl = request.Path + request.QueryString.ToUriComponent();
+}
+
+@foreach (var tool in Model.Items)
 {
     <div class="col-md-4">
         <div class="card mb-4">
@@ -6,7 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title">@tool.Name</h5>
                 <p class="card-text">@tool.Description</p>
-                <a asp-controller="Cart" asp-action="Add" asp-route-id="@tool.Id" asp-route-returnurl="@Model.ReturnUrl"
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@tool.Id" asp-route-returnurl="@returnUrl"
                    class="btn btn-primary">Добавить в корзину</a>
             </div>
         </div>
@@ -16,8 +21,7 @@
 
 <Pager current-page="@Model.CurrentPage"
        total-pages="@Model.TotalPages"
-       category="@(Model.CurrentCategory?.NormalizedName)">
+       category="@(Model.CategoryNormalizedName)">
 </Pager>
-
 
 

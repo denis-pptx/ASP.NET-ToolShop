@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "Index";
 
-    var request = ViewContext.HttpContext.Request;
-    var returnUrl = request.Path + request.QueryString.ToUriComponent();
-
     var categories = ViewData["caregories"] as List<Category>;
     var currentCategory = ViewData["currentCategory"] as Category;
 
@@ -52,14 +49,27 @@
     </div>
 
     <!-- Вывод карточек -->
-    <div class="col-10 row">
+    <div class="col-10">
         <h1>Строительные инструменты</h1>
 
-        <partial name="_ProductIndexPartial"
-                 model="new { Model.Items, ReturnUrl = returnUrl, Model.CurrentPage,
-                              Model.TotalPages, CurrentCategory = currentCategory }" />
+        <div id="output" class="row">
+            <partial name="_ProductIndexPartial"
+                     model="new { Model.Items, Model.CurrentPage, Model.TotalPages, 
+                                  CategoryNormalizedName = currentCategory?.NormalizedName }" />
+        </div>
     </div>
-
     <!-- Вывод карточек - конец -->
 </div>
 
+@section Scripts {
+    <script>
+        $(function () {
+            $('#output').on('click', '.page-link', function (event) {
+                event.preventDefault();
+                let url = $(this).attr('href');
+                $('#output').load(url);
+                history.pushState(null, null, url);
+            });
+        });
+    </script>
+}

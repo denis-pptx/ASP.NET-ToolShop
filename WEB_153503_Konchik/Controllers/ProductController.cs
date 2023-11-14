@@ -1,4 +1,6 @@
-﻿namespace WEB_153503_Konchik.Controllers;
+﻿using WEB_153503_Konchik.Extensions;
+
+namespace WEB_153503_Konchik.Controllers;
 
 public class ProductController : Controller
 {
@@ -20,10 +22,24 @@ public class ProductController : Controller
         ViewData["caregories"] = categoryResponse.Data;
         ViewData["currentCategory"] = categoryResponse.Data?.SingleOrDefault(c => c.NormalizedName == category);
 
-        var productResponce = await _toolService.GetToolListAsync(category, pageNo);
-        if (!productResponce.Success)
-            return NotFound(productResponce.ErrorMessage);
+        var productResponse = await _toolService.GetToolListAsync(category, pageNo);
+        if (!productResponse.Success)
+            return NotFound(productResponse.ErrorMessage);
 
-        return View(productResponce.Data);
+        if (Request.IsAjaxRequest())
+        {
+            ListModel<Tool> data = productResponse.Data!;
+            return PartialView("_ProductIndexPartial", new
+            {
+                data.Items,
+                data.CurrentPage,
+                data.TotalPages,
+                CategoryNormalizedName = category
+            });
+        }
+        else
+        {
+            return View(productResponse.Data); 
+        }
     }
 }
