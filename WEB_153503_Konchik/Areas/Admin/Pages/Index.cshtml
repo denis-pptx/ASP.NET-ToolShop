@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model IndexModel
 
 @{
@@ -53,3 +53,9 @@
         }
     </tbody>
 </table>
+
+<!-- Пагинация -->
+<Pager current-page="@Model.CurrentPage"
+       total-pages="@Model.TotalPages"
+       admin="true"></Pager>
+<!-- Пагинация - конец -->

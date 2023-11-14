@@ -37,7 +37,7 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
           
             Tools = responce.Data?.Items!;
             CurrentPage = responce.Data?.CurrentPage ?? 0;
-            CurrentPage = responce.Data?.TotalPages ?? 0;
+            TotalPages = responce.Data?.TotalPages ?? 0;
 
             return Page();
             
