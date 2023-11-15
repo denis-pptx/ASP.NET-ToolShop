@@ -8,9 +8,12 @@ namespace WEB_153503_Konchik.Controllers;
 public class CartController : Controller
 {
     private readonly IToolService _toolService;
-    public CartController(IToolService toolService)
+    private readonly Cart _cart;
+
+    public CartController(IToolService toolService, Cart cart)
     {
         _toolService = toolService;
+        _cart = cart;
     }
 
     public async Task<IActionResult> Add(int id, string returnUrl)
@@ -18,10 +21,7 @@ public class CartController : Controller
         var tool = await _toolService.GetToolByIdAsync(id);
         if (tool.Success)
         {
-            Cart cart = HttpContext.Session.Get<Cart>(nameof(Cart)) ?? new();
-            cart.AddToCart(tool.Data!);
-
-            HttpContext.Session.Set(nameof(Cart), cart);
+            _cart.AddToCart(tool.Data!);
         }
 
         return Redirect(returnUrl);

@@ -4,14 +4,13 @@ namespace WEB_153503_Konchik.Components;
 
 public class CartViewComponent : ViewComponent
 {
-    private readonly IHttpContextAccessor _contextAccessor;
-    public CartViewComponent(IHttpContextAccessor httpContextAccessor)
+    private readonly Cart _cart;
+    public CartViewComponent(Cart cart)
     {
-        _contextAccessor = httpContextAccessor;
+        _cart = cart;
     }
     public IViewComponentResult Invoke()
     {
-        Cart? cart = _contextAccessor.HttpContext!.Session.Get<Cart>(nameof(Cart));
-        return View(cart);
+        return View(_cart);
     }
 }

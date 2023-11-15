@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Packaging;
 using System.Configuration;
+using WEB_153503_Konchik.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddSession();
 
 //builder.Services.AddScoped<IToolCategoryService, MemoryToolCategoryService>();
 //builder.Services.AddScoped<IToolService, MemoryToolService>();
+
+builder.Services.AddScoped<Cart, SessionCart>();
 
 UriData uriData = builder.Configuration.GetSection("UriData").Get<UriData>()!;
 
