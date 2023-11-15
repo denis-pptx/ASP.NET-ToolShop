@@ -16,13 +16,24 @@ public class CartController : Controller
         _cart = cart;
     }
 
+    public IActionResult Index()
+    {
+        return View(_cart.CartItems);
+    }
     public async Task<IActionResult> Add(int id, string returnUrl)
     {
-        var tool = await _toolService.GetToolByIdAsync(id);
-        if (tool.Success)
+        var response = await _toolService.GetToolByIdAsync(id);
+        if (response.Success)
         {
-            _cart.AddToCart(tool.Data!);
+            _cart.AddToCart(response.Data!);
         }
+
+        return Redirect(returnUrl);
+    }
+
+    public IActionResult Remove(int id, string returnUrl)
+    {
+        _cart.Remove(id);
 
         return Redirect(returnUrl);
     }
