@@ -2,6 +2,7 @@
 
 namespace WEB_153503_Konchik.Controllers;
 
+
 public class ProductController : Controller
 {
     readonly IToolCategoryService _toolCategoryService;
@@ -13,6 +14,8 @@ public class ProductController : Controller
         _toolService = toolService;
     }
 
+    [Route("Catalog")]
+    [Route("Catalog/{category?}")]
     public async Task<IActionResult> Index(string? category, int pageNo = 1)
     {
         var categoryResponse =  await _toolCategoryService.GetCategoryListAsync();

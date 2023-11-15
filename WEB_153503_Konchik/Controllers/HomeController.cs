@@ -16,7 +16,7 @@ public class HomeController : Controller
             new() { Id = 5, Name = "Igor" }
         };
         var selectList = new SelectList(demoItemList, "Id", "Name");
-
+      
         return View(selectList);
     }
 }
