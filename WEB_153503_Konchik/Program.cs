@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Packaging;
 using System.Configuration;
@@ -10,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 //builder.Services.AddScoped<IToolCategoryService, MemoryToolCategoryService>();
 //builder.Services.AddScoped<IToolService, MemoryToolService>();
@@ -61,6 +63,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
