@@ -22,7 +22,7 @@ public class ProductController : Controller
         if (!categoryResponse.Success)
             return NotFound(categoryResponse.ErrorMessage);
 
-        ViewData["caregories"] = categoryResponse.Data;
+        ViewData["categories"] = categoryResponse.Data;
         ViewData["currentCategory"] = categoryResponse.Data?.SingleOrDefault(c => c.NormalizedName == category);
 
         var productResponse = await _toolService.GetToolListAsync(category, pageNo);

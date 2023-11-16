@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 
-    var categories = ViewData["caregories"] as List<Category>;
+    var categories = ViewData["categories"] as List<Category>;
     var currentCategory = ViewData["currentCategory"] as Category;
 
     int prev = Model.CurrentPage == 1 ? 1 : Model.CurrentPage - 1;
