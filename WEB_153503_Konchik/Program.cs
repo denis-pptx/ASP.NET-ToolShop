@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Packaging;
+using Serilog;
 using System.Configuration;
 using System.Security.Claims;
+using WEB_153503_Konchik.Middleware;
 using WEB_153503_Konchik.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,10 +51,10 @@ builder.Services.AddAuthentication(opt =>
     });
 
 
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
-//});
+
+var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .CreateLogger();
 
 var app = builder.Build();
 
@@ -78,5 +80,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages().RequireAuthorization();
+
+app.UseMiddleware<LogMiddleware>(logger);
 
 app.Run();
