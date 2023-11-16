@@ -5,18 +5,17 @@ namespace WEB_153503_Konchik.API.Services;
 
 public class ToolService : IToolService
 {
-    private const int _maxPageSize = 20;
+    public int MaxPageSize { get; } = 20;
+
     private readonly AppDbContext _context;
-    private readonly IConfiguration _configuration;
 
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ToolService(AppDbContext context, IConfiguration configuration, 
+    public ToolService(AppDbContext context,
         IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
-        _configuration = configuration;
 
         _webHostEnvironment = webHostEnvironment;
         _httpContextAccessor = httpContextAccessor;
@@ -24,8 +23,8 @@ public class ToolService : IToolService
 
     public async Task<ResponseData<ListModel<Tool>>> GetToolListAsync(string? categoryNormalizedName, int pageNo = 1, int pageSize = 3)
     {
-        if (pageSize > _maxPageSize)
-            pageSize = _maxPageSize;
+        if (pageSize > MaxPageSize)
+            pageSize = MaxPageSize;
 
         var query = _context.Tools.AsQueryable();
         var dataList = new ListModel<Tool>();
