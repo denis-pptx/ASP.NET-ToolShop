@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Packaging;
 using System.Configuration;
+using System.Security.Claims;
 using WEB_153503_Konchik.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,14 +45,14 @@ builder.Services.AddAuthentication(opt =>
         options.SaveTokens = true;
 
         options.Scope.AddRange(builder.Configuration.GetSection("InteractiveServiceSettings:Scopes").Get<string[]>());
-        options.ClaimActions.MapUniqueJsonKey("role", "role");
+        options.ClaimActions.MapUniqueJsonKey(ClaimsIdentity.DefaultRoleClaimType, "role");
     });
 
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
-});
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
+//});
 
 var app = builder.Build();
 

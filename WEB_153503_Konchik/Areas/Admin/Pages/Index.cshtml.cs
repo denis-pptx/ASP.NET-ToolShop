@@ -12,7 +12,7 @@ using WEB_153503_Konchik.Domain.Entities;
 
 namespace WEB_153503_Konchik.Areas.Admin.Pages
 {
-    [Authorize(Policy = "AdminPolicy")]
+    [Authorize(Roles = "admin")]
     public class IndexModel : PageModel
     {
         private readonly IToolService _toolService;
@@ -30,17 +30,17 @@ namespace WEB_153503_Konchik.Areas.Admin.Pages
             // var user = HttpContext.User;
 
             var responce = await _toolService.GetToolListAsync(null, pageNo);
-            
+
             if (!responce.Success)
                 return NotFound(responce.ErrorMessage ?? "");
 
-          
+
             Tools = responce.Data?.Items!;
             CurrentPage = responce.Data?.CurrentPage ?? 0;
             TotalPages = responce.Data?.TotalPages ?? 0;
 
             return Page();
-            
+
         }
     }
 }

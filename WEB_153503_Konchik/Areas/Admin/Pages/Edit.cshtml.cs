@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +13,7 @@ using WEB_153503_Konchik.Domain.Entities;
 
 namespace WEB_153503_Konchik.Areas.Admin.Pages
 {
+    [Authorize(Roles = "admin")]
     public class EditModel : PageModel
     {
         private readonly IToolService _toolService;

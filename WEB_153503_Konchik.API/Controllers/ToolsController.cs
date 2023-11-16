@@ -42,6 +42,7 @@ public class ToolsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<ResponseData<Tool>>> PutTool(int id, Tool tool)
     {
+        var user = User;
         try
         {
             await _toolService.UpdateToolAsync(id, tool);
