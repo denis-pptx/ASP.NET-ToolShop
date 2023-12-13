@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.API", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.IdentityServer", "..\WEB_153503_Konchik.IdentityServer\WEB_153503_Konchik.IdentityServer.csproj", "{8DDB44C6-B93A-4431-8026-EF26324754B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.Tests", "..\WEB_153503_Konchik.Tests\WEB_153503_Konchik.Tests.csproj", "{E2AB76B5-842C-46AD-9D75-5B308D18CEAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB_153503_Konchik.Tests", "..\WEB_153503_Konchik.Tests\WEB_153503_Konchik.Tests.csproj", "{E2AB76B5-842C-46AD-9D75-5B308D18CEAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_153503_Konchik.BlazorWasm", "..\WEB_153503_Konchik.BlazorWasm\WEB_153503_Konchik.BlazorWasm.csproj", "{13E7C4D8-7926-4914-A8B5-241087A193BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E2AB76B5-842C-46AD-9D75-5B308D18CEAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2AB76B5-842C-46AD-9D75-5B308D18CEAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2AB76B5-842C-46AD-9D75-5B308D18CEAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E7C4D8-7926-4914-A8B5-241087A193BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E7C4D8-7926-4914-A8B5-241087A193BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E7C4D8-7926-4914-A8B5-241087A193BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E7C4D8-7926-4914-A8B5-241087A193BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
