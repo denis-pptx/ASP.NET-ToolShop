@@ -48,7 +48,18 @@ namespace WEB_153503_Konchik.IdentityServer
                     PostLogoutRedirectUris = { "https://localhost:7001/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api.read", "api.write", "roles" },
+                    AllowedScopes =  { "openid", "profile", "api.read", "api.write", "roles" },
+                },
+
+                new Client
+                {
+                    ClientId = "blazorApp",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
+                    RedirectUris = { "https://localhost:7151/authentication/login-callback" },
+                    PostLogoutRedirectUris = { "https://localhost:7151/authentication/logout-callback" },
+                    AllowOfflineAccess = true,
+                    AllowedScopes = { "openid", "profile", "api.read", "api.write" }
                 },
             };
     }
