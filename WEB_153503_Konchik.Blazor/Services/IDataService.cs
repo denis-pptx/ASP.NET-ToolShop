@@ -1,9 +1,11 @@
 ﻿using WEB_153503_Konchik.Domain.Entities;
 
-namespace WEB_153503_Konchik.BlazorWasm.Services;
+namespace WEB_153503_Konchik.Blazor.Services;
 
 public interface IDataService
 {
+    event Action DataChanged;
+
     // Список категорий объектов
     List<Category> Categories { get; set; }
 

@@ -1,0 +1,44 @@
+﻿@inject IDataService DataService
+@implements IDisposable
+
+<h1>Telescope list</h1>
+
+@if (DataService.ToolList is null || !DataService.Success)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tl in DataService.ToolList!)
+            {
+                <tr>
+                    <td>@tl.Name</td>
+                    <td> <button class="btn btn-primary" @onclick="() => ToolSelected.Invoke(tl.Id)">Подробнее</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public Action<int> ToolSelected { get; set; }
+
+    protected override void OnInitialized()
+    {
+        DataService.DataChanged += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        DataService.DataChanged -= StateHasChanged;
+    }
+}

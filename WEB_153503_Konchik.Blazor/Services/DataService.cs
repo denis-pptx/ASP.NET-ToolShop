@@ -7,7 +7,7 @@ using WEB_153503_Konchik.Domain.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
 
-namespace WEB_153503_Konchik.BlazorWasm.Services;
+namespace WEB_153503_Konchik.Blazor.Services;
 
 public class DataService : IDataService
 {

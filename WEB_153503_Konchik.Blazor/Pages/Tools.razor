@@ -1,0 +1,39 @@
+﻿@page "/tools"
+@page "/tools/{category}"
+@attribute [Authorize]
+
+@using Domain.Entities;
+@using Microsoft.AspNetCore.Authorization;
+@using WEB_153503_Konchik.Blazor.Components;
+
+<PageTitle>Tools</PageTitle>
+
+<CategorySelector SelectedCategory="@SelectedName" />
+<ToolList TelescopesSelected="FindTelescopes" />
+<Pager Category="@Category" TotalPages="@DataService.TotalPages" CurrentPage="@DataService.CurrentPage" />
+<ToolDetails SelectedTelescopes="@SelectedTool"/>
+
+@code {
+	[Inject]
+	public IDataService DataService { get; set; }
+
+	[Parameter] 
+	public string Category { get; set; }
+
+	public string? SelectedName { get; set; }
+	public Tool? SelectedTool { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await DataService.GetToolListAsync(Category);
+		if (Category != null)
+			SelectedName = DataService?.Categories?.FirstOrDefault(c => c.NormalizedName.Equals(Category))?.Name;
+		else SelectedName = "Все";
+	}
+
+	public void FindTelescopes(int id)
+	{
+		SelectedTool = DataService?.ToolList?.FirstOrDefault(c => c.Id == id);
+		StateHasChanged();
+	}
+}

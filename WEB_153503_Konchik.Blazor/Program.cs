@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using WEB_153503_Konchik.BlazorWasm;
-using WEB_153503_Konchik.BlazorWasm.Services;
+using WEB_153503_Konchik.Blazor;
+using WEB_153503_Konchik.Blazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -11,9 +11,9 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    // Configure your authentication provider options here.
-    // For more information, see https://aka.ms/blazor-standalone-auth
-    builder.Configuration.Bind("Local", options.ProviderOptions);
+	// Configure your authentication provider options here.
+	// For more information, see https://aka.ms/blazor-standalone-auth
+	builder.Configuration.Bind("Local", options.ProviderOptions);
 });
 
 builder.Services.AddScoped<IDataService, DataService>();
