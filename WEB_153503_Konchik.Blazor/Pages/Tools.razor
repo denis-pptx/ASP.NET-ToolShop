@@ -11,7 +11,7 @@
 <CategorySelector SelectedCategory="@SelectedName" />
 <ToolList ToolSelected="FindTool" />
 <Pager Category="@Category" TotalPages="@DataService.TotalPages" CurrentPage="@DataService.CurrentPage" />
-<ToolDetails ToolSelected="@SelectedTool" />
+<ToolDetails SelectedTool="@SelectedTool" />
 
 @code {
 	[Inject]
@@ -26,9 +26,11 @@
 	protected override async Task OnParametersSetAsync()
 	{
 		await DataService.GetToolListAsync(Category);
+
 		if (Category != null)
 			SelectedName = DataService?.Categories?.FirstOrDefault(c => c.NormalizedName.Equals(Category))?.Name;
-		else SelectedName = "Все";
+		else 
+			SelectedName = "Все";
 	}
 
 	public void FindTool(int id)
