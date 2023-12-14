@@ -44,7 +44,7 @@ public class DataService : IDataService
 
     public List<Category>? Categories { get; set; } = new();
     public List<Tool>? ToolList { get; set; } = new();
-    public bool Success { get; set; } = true;
+    public bool Success { get; set; } 
     public string? ErrorMessage { get; set; }
     public int TotalPages { get; set; }
     public int CurrentPage { get; set; }

@@ -3,11 +3,11 @@
 <style>
 	.tool-details-container {
 		display: flex;
-		align-items: center;
 	}
 	.tool-image {
 		flex: 0 0 auto;
 		margin-right: 20px;
+		border: 1px solid black;
 	}
 	.tool-info {
 		flex: 1 1 auto;
@@ -27,7 +27,7 @@
 		<div class= "tool-info">
 			<h2>@SelectedTool.Name</h2>
 			<p>@SelectedTool.Description</p>
-			<p>Price: @SelectedTool.Price</p>
+			<h5><span class="badge bg-secondary">Price: @SelectedTool.Price</span></h5>
 		</div>
 	</div>
 }

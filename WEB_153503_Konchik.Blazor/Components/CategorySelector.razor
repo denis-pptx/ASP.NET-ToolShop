@@ -1,13 +1,16 @@
-﻿<select class="form-select" @onchange="CategoryHasChanged">
-    <option value="">Все</option>
-    @if (DataService?.Categories is not null)
-    {
-        @foreach (var category in DataService.Categories!)
+﻿<div class="form-floating">
+    <select class="form-select" style="width:auto;" id="floatingSelect" @onchange=" CategoryHasChanged">
+        <option value="">Все</option>
+        @if (DataService?.Categories is not null)
         {
-            <option value="@category.NormalizedName">@category.Name</option>
+            @foreach (var category in DataService.Categories!)
+            {
+                <option value="@category.NormalizedName">@category.Name</option>
+            }
         }
-    }
-</select>
+    </select>
+    <label for="floatingSelect">Категория</label>
+</div>
 
 @code {
     [Inject]

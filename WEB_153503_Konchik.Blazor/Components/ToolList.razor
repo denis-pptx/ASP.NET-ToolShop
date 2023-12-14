@@ -1,19 +1,17 @@
 ﻿@inject IDataService DataService
 @implements IDisposable
 
-<h1>Tool list</h1>
-
 @if (DataService.ToolList is null || !DataService.Success)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
+    <table class="table table-striped table-bordered mt-3">
         <thead>
             <tr>
-                <th>Name</th>
-
+                <th>Название</th>
+                <th>Действие</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +19,12 @@ else
             {
                 <tr>
                     <td>@tl.Name</td>
-                    <td> <button class="btn btn-primary" @onclick="() => ToolSelected.Invoke(tl.Id)">Подробнее</button></td>
+                    <td>
+                        <button class="btn btn-outline-primary" @onclick="() => ToolSelected.Invoke(tl.Id)">
+                            <span class="oi oi-magnifying-glass"></span>
+                            Подробно
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
