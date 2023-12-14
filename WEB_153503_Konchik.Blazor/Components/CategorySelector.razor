@@ -27,6 +27,6 @@
     private void CategoryHasChanged(ChangeEventArgs e)
     {
         SelectedCategory = e.Value?.ToString();
-        NavigationManager.NavigateTo($"catalog/{SelectedCategory}");
+        NavigationManager.NavigateTo($"tools/{SelectedCategory}");
     }
 }

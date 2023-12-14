@@ -51,7 +51,9 @@ public class DataService : IDataService
 
     public async Task GetToolListAsync(string? categoryNormalizedName, int pageNo = 1)
     {
-        var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/");
+		ConfigureToken();
+
+		var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/");
 
         if (categoryNormalizedName != null)
         {
@@ -77,8 +79,11 @@ public class DataService : IDataService
                 ToolList = responseData?.Data?.Items;
                 TotalPages = responseData?.Data?.TotalPages ?? 0;
                 CurrentPage = responseData?.Data?.CurrentPage ?? 0;
-                DataChanged?.Invoke();
-            }
+
+				Success = true;
+
+				DataChanged?.Invoke();
+			}
             catch (JsonException ex)
             {
                 _logger.LogError($"-----> Ошибка: {ex.Message}");
@@ -87,23 +92,29 @@ public class DataService : IDataService
                 ErrorMessage = $"Ошибка: {ex.Message}";
             }
         }
+        else
+        {
+			_logger.LogError($"-----> Данные не получены от сервера. Error: {response.StatusCode}");
 
-        _logger.LogError($"-----> Данные не получены от сервера. Error: {response.StatusCode}");
-
-        Success = false;
-        ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
+			Success = false;
+			ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
+		}
     }
 
     public async Task<Tool?> GetToolByIdAsync(int id)
     {
-        var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/tool{id}");
+		ConfigureToken();
+
+		var urlString = new StringBuilder($"{_httpClient.BaseAddress!.AbsoluteUri}Tools/tool{id}");
         var response = await _httpClient.GetAsync(new Uri(urlString.ToString()));
 
         if (response.IsSuccessStatusCode)
         {
             try
             {
-                return (await response.Content.ReadFromJsonAsync<ResponseData<Tool>>(_serializerOptions)).Data;
+                Success = true;
+
+				return (await response.Content.ReadFromJsonAsync<ResponseData<Tool>>(_serializerOptions)).Data;
             }
             catch (JsonException ex)
             {
@@ -114,25 +125,32 @@ public class DataService : IDataService
                 return null;
             }
         }
+        else
+        {
+			_logger.LogError($"-----> Данные не получены от сервера. Error: {response.StatusCode}");
+			Success = false;
+			ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
 
-        _logger.LogError($"-----> Данные не получены от сервера. Error: {response.StatusCode}");
-        Success = false;
-        ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
-
-        return null;
+			return null;
+		}
+        
     }
 
     public async Task GetCategoryListAsync()
     {
-        var urlString = new StringBuilder($"{_httpClient.BaseAddress?.AbsoluteUri}Categories/");
+		ConfigureToken();
+
+		var urlString = new StringBuilder($"{_httpClient.BaseAddress?.AbsoluteUri}Categories/");
         var response = await _httpClient.GetAsync(new Uri(urlString.ToString()));
         if (response.IsSuccessStatusCode)
         {
             try
             {
-                var responseData = await response.Content.ReadFromJsonAsync<ResponseData<List<Category>>>(_serializerOptions);
+                Success = true;
+
+				var responseData = await response.Content.ReadFromJsonAsync<ResponseData<List<Category>>>(_serializerOptions);
                 Categories = responseData?.Data;
-            }
+			}
             catch (JsonException ex)
             {
                 _logger.LogError($"-----> Ошибка: {ex.Message}");
@@ -140,9 +158,12 @@ public class DataService : IDataService
                 ErrorMessage = $"Ошибка: {ex.Message}";
             }
         }
-
-        _logger.LogError($"-----> Данные не получены от сервера. Error:{response.StatusCode}");
-        Success = false;
-        ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
+        else
+        {
+			_logger.LogError($"-----> Данные не получены от сервера. Error:{response.StatusCode}");
+			Success = false;
+			ErrorMessage = $"Данные не получены от сервера. Error:{response.StatusCode}";
+		}
+      
     }
 }

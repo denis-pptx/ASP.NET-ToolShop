@@ -9,9 +9,9 @@
 <PageTitle>Tools</PageTitle>
 
 <CategorySelector SelectedCategory="@SelectedName" />
-<ToolList TelescopesSelected="FindTelescopes" />
+<ToolList ToolSelected="FindTool" />
 <Pager Category="@Category" TotalPages="@DataService.TotalPages" CurrentPage="@DataService.CurrentPage" />
-<ToolDetails SelectedTelescopes="@SelectedTool"/>
+<ToolDetails ToolSelected="@SelectedTool" />
 
 @code {
 	[Inject]
@@ -31,7 +31,7 @@
 		else SelectedName = "Все";
 	}
 
-	public void FindTelescopes(int id)
+	public void FindTool(int id)
 	{
 		SelectedTool = DataService?.ToolList?.FirstOrDefault(c => c.Id == id);
 		StateHasChanged();
